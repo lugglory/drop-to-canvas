@@ -1,0 +1,23 @@
+{
+	"name": "drop-to-canvas",
+	"version": "0.4.0",
+	"description": "Obsidian Canvas: drop a text file to move its content into a card and delete the original.",
+	"main": "main.js",
+	"scripts": {
+		"dev": "node esbuild.config.mjs",
+		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+		"test": "vitest run"
+	},
+	"keywords": [],
+	"author": "lugglory",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "^20.11.0",
+		"builtin-modules": "^3.3.0",
+		"esbuild": "0.20.0",
+		"obsidian": "latest",
+		"tslib": "2.6.2",
+		"typescript": "5.3.3",
+		"vitest": "^1.6.0"
+	}
+}
