@@ -24,6 +24,29 @@ __export(main_exports, {
 module.exports = __toCommonJS(main_exports);
 var import_obsidian = require("obsidian");
 
+// droppedText.ts
+function buildDroppedCardText(title, content) {
+  const heading = `# ${title.trim() || "Untitled"}`;
+  if (content.trim().length === 0)
+    return heading;
+  const frontmatter = content.match(/^---\r?\n[\s\S]*?\r?\n---(?:\r?\n)?/);
+  if (!frontmatter)
+    return `${heading}
+
+${content}`;
+  const metadata = frontmatter[0].trimEnd();
+  const body = content.slice(frontmatter[0].length);
+  if (body.trim().length === 0)
+    return `${metadata}
+
+${heading}`;
+  return `${metadata}
+
+${heading}
+
+${body.trimStart()}`;
+}
+
 // sizing.ts
 function estimateCardSize(text, opts) {
   const charWidth = 8;
@@ -161,11 +184,12 @@ var DropToCanvasPlugin = class extends import_obsidian.Plugin {
           new import_obsidian.Notice(`Drop to Canvas: ${file.name} is empty \u2014 skipped`);
           continue;
         }
-        const size = estimateCardSize(content, this.settings);
+        const text = buildDroppedCardText(file.basename, content);
+        const size = estimateCardSize(text, this.settings);
         const node = canvas.createTextNode({
           pos: { x: basePos.x + offset, y: basePos.y + offset },
           size,
-          text: content,
+          text,
           focus: false,
           save: true
         });

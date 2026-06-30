@@ -11,7 +11,7 @@ original file to trash** — and sizes the card to fit its content.
 ## Features
 
 - **Drop to move** — drag a text file (`md`, `txt`, `csv`, `json`) onto a
-  canvas and its content becomes a text card; the original is trashed.
+  canvas and its title plus content become a text card; the original is trashed.
 - **Auto-size cards** — width is chosen from the amount of content to keep a pleasant
   ratio (clamped between a min and max), then the height is measured from the actual
   rendered content so the card fits.

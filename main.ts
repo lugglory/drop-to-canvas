@@ -7,6 +7,7 @@ import {
 	TFile,
 	WorkspaceLeaf,
 } from "obsidian";
+import { buildDroppedCardText } from "./droppedText";
 import { estimateCardSize } from "./sizing";
 
 /**
@@ -181,11 +182,12 @@ export default class DropToCanvasPlugin extends Plugin {
 					new Notice(`Drop to Canvas: ${file.name} is empty — skipped`);
 					continue;
 				}
-				const size = estimateCardSize(content, this.settings);
+				const text = buildDroppedCardText(file.basename, content);
+				const size = estimateCardSize(text, this.settings);
 				const node = canvas.createTextNode({
 					pos: { x: basePos.x + offset, y: basePos.y + offset },
 					size,
-					text: content,
+					text,
 					focus: false,
 					save: true,
 				});
